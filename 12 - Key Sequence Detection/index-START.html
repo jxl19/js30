@@ -7,6 +7,16 @@
 </head>
 <body>
 <script>
+  let pressedKeys = [];
+  let secretCode = 'jun';
+  window.addEventListener('keyup', (e) => {
+    pressedKeys.push(e.key);
+    //splice to make pressedkeys array size equal to secretcode length
+    pressedKeys.splice(-secretCode.length -1, pressedKeys.length - secretCode.length);
+    if (pressedKeys.join('') === secretCode) {
+      cornify_add();
+    }
+  })
 </script>
 </body>
 </html>
