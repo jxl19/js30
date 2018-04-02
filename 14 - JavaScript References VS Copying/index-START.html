@@ -8,16 +8,17 @@
 
   <script>
     // start with strings, numbers and booleans
-
+    
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
-
+    const team = players;
     // You might think we can just do something like this:
-
+    console.log(players,team); //2 arrays of the same players
+    team[3] = 'Lux'; 
     // however what happens when we update that array?
-
+      //-- this will also change the original players array
     // now here is the problem!
 
     // oh no - we have edited the original array too!
@@ -25,13 +26,18 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
-
+    const team2 = players.slice();
+    team2[3] = 'Lux';
+    //only team 2 will have the array changed with lux, original players array will be untouched
+    //slice without anything passed in will just return a copy of the array
     // one way
 
     // or create a new array and concat the old one in
-
+    const team3 = [].concat(players);
     // or use the new ES6 Spread
-
+    const team4 = [...players];
+    //takes all items out of the iterable and puts it in the containing array
+    const team5= Array.from(players);
     // now when we update it, the original one isn't changed
 
     // The same thing goes for objects, let's say we have a person object
@@ -43,13 +49,29 @@
     };
 
     // and think we make a copy:
-
     // how do we take a copy instead?
-
+    const cap2 = Object.assign({}, person, {number: 99, age: 12});
+    //3rd argument lets us update, add values
     // We will hopefully soon see the object ...spread
-
+    
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const wes = {
+      name: 'Wes',
+      age: 100,
+      social: {
+        twitter: '@wesbos',
+        facebook: 'wesbos.developer'
+      }
+    };
 
+    console.clear();
+    console.log(wes);
+    const dev = Object.assign({}, wes);
+    //bc it's only one level deep, the original wes object twitter also changed.
+    dev.social.twitter = '@coolman';
+    //this stringigy's the wes object and then we immediately json.parse it and then we get a full copy it "poor mans deep clone"
+    const dev2 = JSON.parse(JSON.stringify(wes));
+    
   </script>
 
 </body>
